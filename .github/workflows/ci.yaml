@@ -16,9 +16,9 @@ jobs:
 
       - name: "Build Docker Image"
         run: |
-          docker login -u sahilgurung13 -p $DOCKERHUB_PAT
-          docker build -t sahilgurung13/workshop6 .
-          docker push sahilgurung13/workshop6
+          docker login -u userlihas -p $DOCKERHUB_PAT
+          docker build -t userlihas/workshop6 .
+          docker push userlihas/workshop6
         env:
           DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT }}
 
@@ -40,6 +40,6 @@ jobs:
 
       - name: "Docker Pull and Restart Docker"
         run: |
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull sahilgurung13/nginx'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull userlihas/nginx'
           ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop not-nginx && docker rm not-nginx'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name not-nginx -p 80:80 -d sahilgurung13/nginx'
+          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name not-nginx -p 80:80 -d userlihas/nginx'
