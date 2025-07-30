@@ -40,6 +40,6 @@ jobs:
 
       - name: "Docker Pull and Restart Docker"
         run: |
-          ssh -t ubuntu@$SERVER_IP -i assignment.pem 'docker pull sahilgurung13/nginx'
+          ssh -t ubuntu@$SERVER_IP -i assignment.pem 'docker pull sahilgurung13/workshop6'
           ssh -t ubuntu@$SERVER_IP -i assignment.pem 'docker stop not-nginx && docker rm not-nginx'
-          ssh -t ubuntu@$SERVER_IP -i assignment.pem 'docker run --name not-nginx -p 80:80 -d sahilgurung13/nginx'
+          ssh -t ubuntu@$SERVER_IP -i assignment.pem 'docker run --name not-nginx -p 80:80 -d sahilgurung13/workshop6'
