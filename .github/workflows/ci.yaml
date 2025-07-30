@@ -16,9 +16,9 @@ jobs:
 
       - name: "Build Docker Image"
         run: |
-          docker login -u userlihas -p $DOCKERHUB_PAT
-          docker build -t userlihas/workshop6 .
-          docker push userlihas/workshop6
+          docker login -u sahilgurung13 -p $DOCKERHUB_PAT
+          docker build -t sahilgurung13/workshop6 .
+          docker push sahilgurung13/workshop6
         env:
           DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT }}
 
@@ -32,14 +32,14 @@ jobs:
       
       - name: "Put SSH Key in Docker file for Server Access"
         run: |
-          touch pem.pem
-          echo $SSH_KEY64 | base64 -d > pem.pem && chmod 400 pem.pem
+          touch assignment.pem
+          echo $SSH_KEY64 | base64 -d > assignment.pem && chmod 400 assignment.pem
           ssh-keygen -R $SERVER_IP
         env: 
           SSH_KEY64: ${{ secrets.SSH_KEY64 }}
 
       - name: "Docker Pull and Restart Docker"
         run: |
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker pull userlihas/nginx'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker stop not-nginx && docker rm not-nginx'
-          ssh -t ubuntu@$SERVER_IP -i pem.pem 'docker run --name not-nginx -p 80:80 -d userlihas/nginx'
+          ssh -t ubuntu@$SERVER_IP -i assignment.pem 'docker pull sahilgurung13/nginx'
+          ssh -t ubuntu@$SERVER_IP -i assignment.pem 'docker stop not-nginx && docker rm not-nginx'
+          ssh -t ubuntu@$SERVER_IP -i assignment.pem 'docker run --name not-nginx -p 80:80 -d sahilgurung13/nginx'
